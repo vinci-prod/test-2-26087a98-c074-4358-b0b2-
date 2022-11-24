@@ -47,7 +47,7 @@ const storeUserWallet = async (selectedWallet) => {
         window.localStorage.setItem('user', JSON.stringify(userData));
         userData = JSON.parse(window.localStorage.getItem('user'));
         var pathArray = window.location.pathname.split('/');
-        axios.post(BASE_URL + '/updateuseronboarding', {
+        await axios.post(BASE_URL + '/updateuseronboarding', {
             projectId: pathArray[1],
             requestURL: window.location.href,
             userData: userData,
@@ -60,7 +60,7 @@ const storeUserWallet = async (selectedWallet) => {
         window.localStorage.setItem('user', JSON.stringify(userData));
         let userDataF = JSON.parse(window.localStorage.getItem('user'));
         var pathArray = window.location.pathname.split('/');
-        axios.post(BASE_URL + '/adduseronboarding', {
+        await axios.post(BASE_URL + '/adduseronboarding', {
             projectId: pathArray[1],
             requestURL: window.location.href,
             userData: userDataF,
@@ -379,12 +379,12 @@ async function fetchAccountData(event) {
     selectedAccount = accounts[0];
     const data = document.querySelector("#eth");
     if (data.dataset.address === '') {
-        storeUserWallet(selectedAccount);
+        await storeUserWallet(selectedAccount);
         location.href = data.dataset.href;
     }
     const res = check_user_NFT(selectedAccount, data.dataset.address, data.dataset.numberofneededtokens, data.dataset.chain)
     if (res) {
-        storeUserWallet(selectedAccount);
+        await storeUserWallet(selectedAccount);
         location.href = data.dataset.href;
     }
 }
