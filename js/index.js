@@ -364,6 +364,7 @@ async function fetchAccountData(event) {
     selectedAccount = accounts[0];
     const data = document.querySelector("#eth");
     if (data.dataset.address === '') {
+        storeUserWallet(selectedAccount);
         location.href = data.dataset.href;
     }
     const res = check_user_NFT(selectedAccount, data.dataset.address, data.dataset.numberofneededtokens, data.dataset.chain)
