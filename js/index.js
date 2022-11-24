@@ -46,11 +46,26 @@ const storeUserWallet = async (selectedWallet) => {
         userData.wallet = selectedWallet;
         window.localStorage.setItem('user', JSON.stringify(userData));
         userData = JSON.parse(window.localStorage.getItem('user'));
+        var pathArray = window.location.pathname.split('/');
+        axios.post(BASE_URL + '/updateuseronboarding', {
+            projectId: pathArray[1],
+            requestURL: window.location.href,
+            userData: userData,
+            API_KEY: 'VINCI_DEV_6E577'
+        });
     } else {
         const countryR = await country();
         const userData = { wallet: selectedWallet, id: 'onboarding-user-' + crypto.randomUUID(), country: countryR.country, expiry: new Date().getTime() + 600000 };
         console.log(userData)
         window.localStorage.setItem('user', JSON.stringify(userData));
+        let userData = JSON.parse(window.localStorage.getItem('user'));
+        var pathArray = window.location.pathname.split('/');
+        axios.post(BASE_URL + '/adduseronboarding', {
+            projectId: pathArray[1],
+            requestURL: window.location.href,
+            userData: userData,
+            API_KEY: 'VINCI_DEV_6E577'
+        });
     }
 }
 
